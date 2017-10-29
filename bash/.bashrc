@@ -1,7 +1,11 @@
+#########################
+# Bash specific options #
+#########################
+
 # If not running interactively, don't do anything
 case $- in
-    *i*) ;;
-      *) return;;
+	*i*) ;;
+	*) return;;
 esac
 
 # don't put duplicate lines or lines starting with space in the history.
@@ -35,9 +39,19 @@ export EDITOR="nvim"
 # Set default pager for ranger
 export PAGER="less"
 
+# Add ~/bin to the system path
+export PATH=~/bin:$PATH
+
 # Set 256 colors
 #export TERM=xterm-256color
 [[ -n "$TMUX" ]] && export TERM=xterm-256color
+
+###########################
+# Other environment stuff #
+###########################
+
+# load xmodmap mappings
+#xmodmap ~/.Xmodmap
 
 #####################
 # Other Shell Stuff #
@@ -79,6 +93,9 @@ greP() {
 
 # Make pacman display colored output
 alias pacman='pacman --color auto'
+
+# Force trizen to search just the AUR
+alias trizen='trizen --aur'
 
 # Sourcing .bashrc file
 # ---------------------
@@ -152,13 +169,41 @@ unbak() {
 #===============
 
 # Set nvim to vim
-vim() {
-	nvim "$@"
-}
+#vim() {
+	#nvim "$@"
+#}
+alias vim="nvim"
+
+#=============
+# Wine aliases
+#=============
+
+# Prevent wine from adding menu entries and/or desktop links
+WINEDLLOVERRIDES=winemenubuilder.exe=d
+
+# Alias for ~/.wine32 prefix
+alias wine32='WINEARCH=win32 WINEPREFIX=~/.wine32'
+
+# Alias for Steam installed in .wine32
+alias steam-wine32='wine32 primusrun wine ~/.wine32/drive_c/Program\ Files/Steam/Steam.exe -no-cef-sandbox'
 
 #==================
 # Programming Stuff
 #==================
+
+# git
+#----
+
+# Create and initialize repo
+gitrepo() {
+	REPONAME=( "$@" )
+	for repo in ${REPONAME[@]}; do
+		mkdir $repo
+		cd $repo
+		git init
+		cd ..
+	done
+}
 
 # Python
 #-------
@@ -236,15 +281,6 @@ alias mysqlroot='rlwrap -aPassword: mysql -u root -p'
 # Ping google to test internet connectivity
 alias testnet='ping -c 3 www.google.com'
 
-#============================================
-# Aliases for tmux and other related programs
-#============================================
-
-# Force tmux to assume that all terminals running within it support 256-colors
-# alias tmux='tmux -2'
-# alias tmux='TERM=xterm-256color; tmux'
-# alias tmux="env TERM=xterm-256color tmux"
-
 #===============
 # Matlab aliases
 #===============
@@ -262,66 +298,51 @@ alias vimstuff='cd ~/linux_stuff/vim_stuff'
 alias linstuff='cd ~/linux_stuff'
 
 # Stuff pertaining to python programming
-alias pyproj='cd ~/programming_lang_stuff/Python/python_projects'
-alias pyprac='cd ~/programming_lang_stuff/Python/Practice'
-alias pynoteprog='cd /mnt/windows2/Programming/Python/"Textbook Exercises"/"Python for Programming"'
-alias pynotesci='cd /mnt/windows2/Programming/Python/"Textbook Exercises"/"Python for Scientific Computing"'
-alias pynotegui='cd /mnt/windows2/Programming/Python/"Textbook Exercises"/"Python GUI Programming"'
+alias pyproj='cd ~/programming/langs/Python/python_projects'
+alias pyprac='cd ~/programming/langs/Python/Practice'
 
 # Stuff pertaining to Haskell programming
-alias haskmain='cd /mnt/windows2/Programming/Haskell'
-alias haskbook='cd /mnt/windows2/Programming/Haskell/textbook_stuff'
+alias haskmain='cd ~/programming/langs/Haskell'
+alias haskbook='cd ~/programming/langs/Haskell/textbook_notes'
 
-# Programming directory in ~/programming_lang_stuff
+# Programming directory in ~/programming/langs
 # Main directory
-alias pymain='cd ~/programming_lang_stuff/Python'
-alias javamain='cd ~/programming_lang_stuff/Java'
-alias cppmain='cd ~/programming_lang_stuff/C++'
+alias pymain='cd ~/programming/langs/Python'
+alias javamain='cd ~/programming/langs/Java'
+alias cppmain='cd ~/programming/langs/C++'
 # Book
-alias pybook='cd ~/programming_lang_stuff/Python/textbook_notes'
-alias cppbook='cd ~/programming_lang_stuff/C++/book_exercises'
-alias perlbook='cd ~/programming_lang_stuff/Perl'
-alias sabook='cd ~/programming_lang_stuff/sed_and_awk'
-alias rubook='cd ~/programming_lang_stuff/Ruby'
-alias elixbook='cd ~/programming_lang_stuff/Elixir'
-alias julbook='cd ~/programming_lang_stuff/Julia'
-alias scripts='cd ~/programming_lang_stuff/Scripts'
-alias gitbook='cd ~/programming_lang_stuff/Git/textbook_notes'
-alias rbook='cd ~/programming_lang_stuff/R/textbook_notes'
-alias scalbook='cd ~/programming_lang_stuff/scala/textbook_notes'
-alias javabook='cd ~/programming_lang_stuff/Java/textbook_notes'
-alias mysqlbook='cd ~/programming_lang_stuff/MySQL/textbook_notes'
+alias pybook='cd ~/programming/langs/Python/textbook_notes'
+alias cppbook='cd ~/programming/langs/C++/book_exercises'
+alias perlbook='cd ~/programming/langs/Perl'
+alias sabook='cd ~/programming/langs/sed_and_awk'
+alias rubook='cd ~/programming/langs/Ruby'
+alias elixbook='cd ~/programming/langs/Elixir'
+alias julbook='cd ~/programming/langs/Julia'
+alias scripts='cd ~/programming/langs/Scripts'
+alias gitbook='cd ~/programming/langs/Git/textbook_notes'
+alias rbook='cd ~/programming/langs/R/textbook_notes'
+alias scalbook='cd ~/programming/langs/scala/textbook_notes'
+alias javabook='cd ~/programming/langs/Java/textbook_notes'
+alias mysqlbook='cd ~/programming/langs/MySQL/textbook_notes'
 
 # Top level of all programming directories
-alias proglang='cd ~/programming_lang_stuff'
-alias progproj='cd ~/programming_projects'
-alias progexp='cd ~/programming_experimentation'
+alias proghome='cd ~/programming'
+alias proglang='cd ~/programming/langs'
+alias progproj='cd ~/programming/projects'
 
-# Stuff pertaining to MATLAB
-alias matstuff='cd /mnt/windows2/Programming/MATLAB'
-alias dynsys='cd /mnt/windows2/Programming/MATLAB/"Dynamic Systems"'
-alias guiprog='cd /mnt/windows2/Programming/MATLAB/"GUI Programming"'
-alias proctrl='cd /mnt/windows2/Programming/MATLAB/"Process Control"'
-alias ncs='cd /mnt/windows2/Programming/MATLAB/"Control Systems with Wireless Networking"'
-
-# Stuff pertaining to college classes
-alias schoolmain='cd /mnt/windows2/"School Stuff"'
-alias contproc='cd /mnt/windows2/"School Stuff"/"College Classes"/Praktikum/"Praktikum Kendali Proses"'
-alias kkn='cd /mnt/windows2/"School Stuff"/KKN'
-alias thesis='cd /mnt/windows2/"School Stuff"/"Undergrad Thesis"'
-alias robotics='cd /mnt/windows2/"School Stuff"/"College Classes"/Robotics'
-alias prak='cd /mnt/windows2/"School Stuff"/"College Classes"/Praktikum'
+# Aliases for the school_stuff directory in Documents
+alias schoolstuff='cd ~/Documents/school_stuff'
 
 # Stuff pertaining to textbooks and their notes
-alias textnote='cd /mnt/windows2/"School Stuff"/"Textbook Notes"'
-alias statnote='cd /mnt/windows2/"School Stuff"/"Textbook Notes"/Math/Statistics'
-alias probnote='cd /mnt/windows2/"School Stuff"/"Textbook Notes"/Math/Probability'
-alias mlnote='cd /mnt/windows2/"School Stuff"/"Textbook Notes"/"Machine Learning"'
-alias algnote='cd /mnt/windows2/"School Stuff"/"Textbook Notes"/Algorithms'
-alias linalgnote='cd /mnt/windows2/"School Stuff"/"Textbook Notes"/Math/lin_alg'
-alias optnote='cd /mnt/windows2/"School Stuff"/"Textbook Notes"/Math/optimization'
-alias numethnote='cd /mnt/windows2/"School Stuff"/"Textbook Notes"/Math/numerical_methods'
-alias datscinote='cd /mnt/windows2/"School Stuff"/"Textbook Notes"/Data_Science'
+alias textnote='cd ~/Documents/school_stuff/textbook_notes'
+alias statnote='cd ~/Documents/school_stuff/textbook_notes/Math/Statistics'
+alias probnote='cd ~/Documents/school_stuff/textbook_notes/Math/Probability'
+alias mlnote='cd ~/Documents/school_stuff/textbook_notes/Machine Learning"'
+alias algnote='cd ~/Documents/school_stuff/textbook_notes/Algorithms'
+alias linalgnote='cd ~/Documents/school_stuff/textbook_notes/Math/lin_alg'
+alias optnote='cd ~/Documents/school_stuff/textbook_notes/Math/optimization'
+alias numethnote='cd ~/Documents/school_stuff/textbook_notes/Math/numerical_methods'
+alias datscinote='cd ~/Documents/school_stuff/textbook_notes/Data_Science'
 
 #====================
 # Convenience aliases

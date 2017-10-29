@@ -11,30 +11,33 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'scrooloose/syntastic'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'scrooloose/nerdcommenter'
-Plug 'Valloric/YouCompleteMe'
 Plug 'jiangmiao/auto-pairs'
-" Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer' }
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
 
 " Aesthetic plugins
-"Plug 'edkolev/promptline.vim'
-"Plug 'edkolev/tmuxline.vim'
 Plug 'powerline/fonts', { 'do': './install.sh' }
 
 " Vim colors
 Plug 'reedes/vim-colors-pencil'
 Plug 'morhetz/gruvbox'
-Plug 'mhartington/oceanic-next'
 Plug 'rakr/vim-one'
-Plug 'dylanaraps/crayon'
-Plug 'w0ng/vim-hybrid'
 Plug 'Marfisc/vorange'
 Plug 'dikiaap/minimalist'
-Plug 'jordwalke/flatlandia'
-Plug 'bcicen/vim-vice'
 Plug 'ashfinal/vim-colors-violet'
 Plug 'ashfinal/vim-colors-paper'
-Plug 'fneu/breezy'
+Plug 'dracula/vim'
+Plug 'NLKNguyen/papercolor-theme'
+Plug 'kabbamine/yowish.vim'
+Plug 'sjl/badwolf'
+Plug 'tomasr/molokai'
+Plug 'AlessandroYorba/Alduin'
+Plug 'AlessandroYorba/Sierra'
+Plug 'danilo-augusto/vim-afterglow'
 
 call plug#end()
 
@@ -47,13 +50,6 @@ nmap <space> <leader>
 
 " Remap Escape key
 imap jk <Esc>
-
-" Unbind the cursor keys in insert, normal, and visual modes
-for prefix in ['i', 'n', 'v']
-	for key in ['<Up>', '<Down>', '<Left>', '<Right>']
-		exe prefix . "noremap " . key . " <Nop>"
-	endfor
-endfor
 
 " Disable mouse support
 set mouse=""
@@ -202,11 +198,14 @@ if (has("termguicolors"))
 endif
 
 " Set the background color
-set background=dark
+"set background=dark
 
 " Set the vim colorscheme
-color breezy
-let g:airline_theme = 'breezy'
+"let g:quantum_italics = 1
+"let g:gruvbox_italic = 1
+"let g:gruvbox_contrast_dark = 'hard'
+color sierra
+"let g:airline_theme = 'vorange'
 
 "---------------
 " Airline plugin
@@ -223,7 +222,7 @@ let g:airline_powerline_fonts = 1
 let g:airline_skip_empty_sections = 1
 
 " Enable the list of buffers
-let g:airline#extensions#tabline#enabled = 1
+"let g:airline#extensions#tabline#enabled = 1
 
 " Show just the filename
 let g:airline#extensions#tabline#fnamemod = ':t'
@@ -285,18 +284,18 @@ nmap gct <leader>c<space>
 " Toggle comment state of individual comment
 nmap gci <leader>ci
 
-"------------------
-" Promptline plugin
-" -----------------
-" let g:promptline_preset = {
-" 	\'a'	: ['\h', '\u'],
-" 	\'c'	: [ '\W' ]}
+"--------------
+" YouCompleteMe
+"--------------
 
-"---------------------
-" YouCompleteMe plugin
-"---------------------
+" Set to use global ycm_extra_conf.py file
 let g:ycm_global_ycm_extra_conf = "~/.ycm_extra_conf.py"
-" let g:EclimCompletionMethod = 'omnifunc'
+
+" Automatically close preview window after completion
+let g:ycm_autoclose_preview_window_after_completion = 1
+
+" Automatically close preview window after insertion
+let g:ycm_autoclose_preview_window_after_insertion = 1
 
 "-----------------
 " Syntastic plugin

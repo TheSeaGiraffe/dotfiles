@@ -1,0 +1,16 @@
+#!/bin/bash
+# stow_all - a script to call stow on all of the files in the .dotfiles directory
+
+# .dotfile subdirs (stow_names) and their contents (files)
+STOW_NAMES=( bash nvim R readline tmux xmodmap )
+FILES=( .bashrc .config/nvim/init.vim .Rprofile .inputrc .tmux.conf .Xmodmap )
+
+# Check to see if any of the files already exist and delete them if they do before stowing
+# the file
+ARR_END=$(( ${#STOW_NAMES[@]} - 1 ))
+for i in $(seq 0 $ARR_END); do
+	if [[ -e ~/${FILES[$i]} ]]; then
+		rm -f ~/${FILES[$i]}
+	fi
+	stow ${STOW_NAMES[$i]}
+done
