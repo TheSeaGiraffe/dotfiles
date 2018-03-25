@@ -96,6 +96,9 @@ set tw=90
 au FileType python setlocal expandtab tw=80
 au FileType r setlocal expandtab tw=80
 
+" Similar settings as above but for markdown files
+au FileType markdown setlocal expandtab tw=80 tabstop=2
+
 " Have tabs be kept tabs in text, c++, java, and scala files
 au FileType text setlocal noexpandtab tw=90
 au FileType cpp setlocal noexpandtab tw=90
@@ -190,7 +193,6 @@ nmap <tab> :b#<CR>
 
 " Close/delete current buffer
 nmap <C-C> :bd<CR>
-
 
 "----------------
 " Vim colorscheme
@@ -312,3 +314,10 @@ let g:syntastic_cpp_compiler = "g++"
 
 " Set Syntastic C++ compiler options
 let g:syntastic_cpp_compiler_options = "-std=c++11 -stdlib=libc++"
+
+"--------------------
+" vim-markdown plugin
+"--------------------
+
+" Disable folding
+let g:vim_markdown_folding_disabled = 1
