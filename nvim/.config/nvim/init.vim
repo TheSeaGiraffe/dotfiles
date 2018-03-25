@@ -13,7 +13,8 @@ Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'scrooloose/nerdcommenter'
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-surround'
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer' }
+Plug 'tpope/vim-dispatch'
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --cs-completer' }
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 Plug 'tpope/vim-fugitive'
@@ -74,6 +75,9 @@ set hidden
 
 " Highlight search terms
 set hlsearch
+
+" Disable mode indicator since airline handles that for us.
+set noshowmode
 
 " Remove highlighting after a search
 nmap <leader>nh :noh<CR>
@@ -198,13 +202,15 @@ if (has("termguicolors"))
 endif
 
 " Set the background color
-"set background=dark
+set background=dark
 
 " Set the vim colorscheme
-"let g:quantum_italics = 1
 "let g:gruvbox_italic = 1
 "let g:gruvbox_contrast_dark = 'hard'
-color sierra
+"color gruvbox
+color minimalist
+"let g:airline_theme = 'badwolf'
+"let g:airline_theme = 'pencil'
 "let g:airline_theme = 'vorange'
 
 "---------------

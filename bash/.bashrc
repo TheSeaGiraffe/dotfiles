@@ -244,9 +244,14 @@ cppdir() {
 # Python
 #-------
 
-# Start ipython in a cleared terminal screen
-alias ipython='clear && ipython --no-banner'
-# alias ipython='clear && rlwrap -a ipython --no-banner'
+# Update all packages in all virtual environments
+pipupdateall() {
+	for env in $(lsvirtualenv | perl -ne 'print if /^\w/'); do
+		workon ${env}
+		pip freeze | awk -F== '{print $1}' | xargs pip install -U
+		deactivate
+	done
+}
 
 # R
 #--
@@ -258,7 +263,7 @@ alias R='clear && R --quiet'
 #-----
 
 # Start the eclim sever
-alias eclimd='~/.eclipse/org.eclipse.platform_4.6.2_155965261_linux_gtk_x86_64/eclimd'
+#alias eclimd='~/.eclipse/org.eclipse.platform_4.6.2_155965261_linux_gtk_x86_64/eclimd'
 
 #======================================
 # Aliases for databases/web development
@@ -319,7 +324,7 @@ alias rubook='cd ~/programming/langs/Ruby'
 alias elixbook='cd ~/programming/langs/Elixir'
 alias julbook='cd ~/programming/langs/Julia'
 alias scripts='cd ~/programming/langs/Scripts'
-alias gitbook='cd ~/programming/langs/Git/textbook_notes'
+alias gitbook='cd ~/programming/version_control/Git/textbook_notes'
 alias rbook='cd ~/programming/langs/R/textbook_notes'
 alias scalbook='cd ~/programming/langs/scala/textbook_notes'
 alias javabook='cd ~/programming/langs/Java/textbook_notes'
@@ -397,3 +402,12 @@ cdlsd() {
 
 # Clear screen and list directory contents
 alias cls='clear && ls'
+
+#===============
+# autojump stuff
+#===============
+
+# Setup autojump wrapper function
+if [[ -s ~/.autojump/etc/profile.d/autojump.sh ]]; then
+	source ~/.autojump/etc/profile.d/autojump.sh
+fi
